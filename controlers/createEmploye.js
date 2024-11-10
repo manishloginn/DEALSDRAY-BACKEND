@@ -1,5 +1,9 @@
 const employeLIst = require("../model/employeList");
 const { validateData } = require("../utils/validateData");
+const path = require('path')
+
+
+// console.log(path.resolve( __dirname, '..'))
 
 const createEmploye = async (req, res) => {
 
@@ -17,12 +21,13 @@ const createEmploye = async (req, res) => {
             designation,
             gender,
             course,
+            image:"https://cdn-icons-png.flaticon.com/512/21/21104.png",
             CreatedDate: Date.now()
         })
 
         employeData.save()
 
-        res.send('employee detail feed')
+        res.status(200).json({message:'employee detail feed'})
     } catch (error) {
         console.log('Validation error:', error);
         res.status(400).json({ message: 'Validation failed', error: error.message });
@@ -34,6 +39,8 @@ const createEmploye = async (req, res) => {
 }
 
 const getEmploye = async (req, res) => {
+
+
 try {
     const employeDetail = await employeLIst.find()
     if(!employeDetail){
